@@ -73,8 +73,8 @@ function ProductDetailContent() {
       rating: "4.0",
       desc: "Wide Vision Rectangular Frame",
       images: [
-        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/square1.png?updatedAt=1774424748071', color: 'bg-teal-500' },
-        { label: 'Side Profile', url: 'https://ik.imagekit.io/FocusOpticals/square2.png?updatedAt=1774424748158', color: 'bg-gray-900' }
+        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/square2.png?updatedAt=1774424748158', color: 'bg-teal-500' },
+        { label: 'Side Profile', url: 'https://ik.imagekit.io/FocusOpticals/square1.png?updatedAt=1774424748071', color: 'bg-gray-900' }
       ],
       colors: [
         { name: 'Matte Black', hex: '#000000', image: 'https://ik.imagekit.io/FocusOpticals/square2.png?updatedAt=1774424748158' }
@@ -86,12 +86,12 @@ function ProductDetailContent() {
       rating: "4.3",
       desc: "Modern Hexagonal Design • Premium Titanium",
       images: [
-        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/front.png?updatedAt=1775043514541', color: 'bg-teal-500' },
-        { label: 'Left Profile', url: 'https://ik.imagekit.io/FocusOpticals/left.png?updatedAt=1775043514452', color: 'bg-blue-600' },
-        { label: 'Right Profile', url: 'https://ik.imagekit.io/FocusOpticals/right.png?updatedAt=1775043514505', color: 'bg-blue-400' }
+        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/geo3.png', color: 'bg-teal-500' },
+        { label: 'Right Profile', url: 'https://ik.imagekit.io/FocusOpticals/geo2.png', color: 'bg-blue-400' },
+        { label: 'Top View', url: 'https://ik.imagekit.io/FocusOpticals/geo1.png', color: 'bg-blue-600' }
       ],
       colors: [
-        { name: 'Ocean Blue', hex: '#1e3a8a', image: 'https://ik.imagekit.io/FocusOpticals/left.png?updatedAt=1775043514452' }
+        { name: 'Ocean Blue', hex: '#1e3a8a', image: 'https://ik.imagekit.io/FocusOpticals/geo3.png' }
       ]
     },
     wayfarer: {

@@ -36,8 +36,8 @@ function ProductsContent() {
       price: '₹999',
       rating: '4.3',
       desc: 'Modern Hexagonal Design',
-      front: "https://ik.imagekit.io/FocusOpticals/front.png?updatedAt=1775043514541",
-      side: "https://ik.imagekit.io/FocusOpticals/right.png?updatedAt=1775043514505",
+      front: "https://ik.imagekit.io/FocusOpticals/geo2.png",
+      side: "https://ik.imagekit.io/FocusOpticals/geo3.png",
       href: "/product/1?shape=geometric",
       shapes: ['geometric']
     },
