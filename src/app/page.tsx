@@ -382,10 +382,10 @@ export default function Home() {
               className="flex flex-col items-center text-center p-5 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20"
             >
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
-                <Award className="h-6 w-6 text-teal-100" />
+                <ShieldCheck className="h-6 w-6 text-teal-100" />
               </div>
-              <h4 className="text-2xl md:text-3xl font-black mb-1">1 YEAR</h4>
-              <p className="text-teal-100 font-medium uppercase tracking-wider text-[10px] md:text-xs">Lens Warranty</p>
+              <h4 className="text-2xl md:text-3xl font-black mb-1">100%</h4>
+              <p className="text-teal-100 font-medium uppercase tracking-wider text-[10px] md:text-xs">Genuine Products</p>
             </motion.div>
 
             <motion.div

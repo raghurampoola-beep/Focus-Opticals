@@ -3,41 +3,49 @@
 import React, { useState, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, Star, Heart, Check, Info, Minus, Plus, MessageCircle } from 'lucide-react';
+import { ChevronLeft, Star, Heart, Check, Info, Minus, Plus, MessageCircle, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { useSearchParams } from 'next/navigation';
 
 const powerTypes = [
-  { id: 'with-power', name: 'With Power', description: 'Positive, Negative or Cylindrical', icon: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M8 12h8m-4-4v8" />
-      <path d="M6 15l12-6" />
-    </svg>
-  )},
-  { id: 'zero-power', name: 'Zero Power', description: 'Blue light block for screen protection', icon: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 2v4m0 12v4M2 12h4m12 0h4" />
-      <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-    </svg>
-  )},
-  { id: 'progressive', name: 'Progressive/Bifocals', description: 'Two powers in one eye', icon: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
-      <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0z" />
-      <path d="M3 12h18" />
-      <circle cx="12" cy="16" r="3" />
-    </svg>
-  )},
-  { id: 'frame-only', name: 'Frame Only', description: 'With no lenses', icon: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
-      <rect x="3" y="8" width="7" height="8" rx="2" />
-      <rect x="14" y="8" width="7" height="8" rx="2" />
-      <path d="M10 12h4" />
-    </svg>
-  )}
+  {
+    id: 'with-power', name: 'With Power', description: 'Positive, Negative or Cylindrical', icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 12h8m-4-4v8" />
+        <path d="M6 15l12-6" />
+      </svg>
+    )
+  },
+  {
+    id: 'zero-power', name: 'Zero Power', description: 'Blue light block for screen protection', icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 2v4m0 12v4M2 12h4m12 0h4" />
+        <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+      </svg>
+    )
+  },
+  {
+    id: 'progressive', name: 'Progressive/Bifocals', description: 'Two powers in one eye', icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
+        <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0z" />
+        <path d="M3 12h18" />
+        <circle cx="12" cy="16" r="3" />
+      </svg>
+    )
+  },
+  {
+    id: 'frame-only', name: 'Frame Only', description: 'With no lenses', icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-10 h-10">
+        <rect x="3" y="8" width="7" height="8" rx="2" />
+        <rect x="14" y="8" width="7" height="8" rx="2" />
+        <path d="M10 12h4" />
+      </svg>
+    )
+  }
 ];
 
 const lensOptions = [
@@ -52,7 +60,7 @@ function ProductDetailContent() {
   const searchParams = useSearchParams();
   const shape = searchParams.get('shape') || 'square';
   const [step, setStep] = useState(1);
-  
+
   const productInfo = {
     square: {
       name: "Square Aviator",
@@ -86,8 +94,8 @@ function ProductDetailContent() {
       rating: "4.3",
       desc: "Modern Hexagonal Design • Premium Titanium",
       images: [
-        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/geo3.png', color: 'bg-teal-500' },
-        { label: 'Right Profile', url: 'https://ik.imagekit.io/FocusOpticals/geo2.png', color: 'bg-blue-400' },
+        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/geo2.png', color: 'bg-blue-400' },
+        { label: 'Right View', url: 'https://ik.imagekit.io/FocusOpticals/geo3.png', color: 'bg-teal-500' },
         { label: 'Top View', url: 'https://ik.imagekit.io/FocusOpticals/geo1.png', color: 'bg-blue-600' }
       ],
       colors: [
@@ -127,7 +135,7 @@ function ProductDetailContent() {
   };
 
   const currentProduct = productInfo[shape as keyof typeof productInfo] || productInfo.square;
-  
+
   const [selectedPowerType, setSelectedPowerType] = useState<string | null>(null);
   const [selectedLens, setSelectedLens] = useState<string | null>(null);
   const [manualPower, setManualPower] = useState('');
@@ -254,8 +262,8 @@ function ProductDetailContent() {
                         key={color.name}
                         className="w-12 h-12 rounded-full border-2 border-teal-600 scale-110 shadow-lg p-1"
                       >
-                        <div 
-                          className="w-full h-full rounded-full shadow-inner" 
+                        <div
+                          className="w-full h-full rounded-full shadow-inner"
                           style={{ backgroundColor: color.hex }}
                         />
                       </div>
@@ -440,21 +448,20 @@ Total Amount: ${formattedTotalPrice}`}
                 </Button>
               </div>
 
+              <Link href="/contact" className="block pt-3">
+                <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-black uppercase tracking-widest transition-colors shadow-md">
+                  <MapPin size={18} />
+                  Visit Our Store
+                </button>
+              </Link>
+
             </motion.div>
           </div>
         </div>
       </main>
 
-      {/* Recommended Section */}
-      <section className="bg-white py-24 mt-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-black text-gray-900 uppercase italic mb-12 flex items-center gap-4">
-            People also <span className="text-teal-600">Considered</span>
-            <div className="flex-1 h-px bg-gray-100" />
-          </h2>
-          {/* Add suggested items here if needed */}
-        </div>
-      </section>
+
+
     </div>
   );
 }
