@@ -28,31 +28,63 @@ export const TryOnModal: React.FC<TryOnModalProps> = ({ isOpen, onClose, product
   const [stage, setStage] = useState<Stage>('preview');
   const [errorMsg, setErrorMsg] = useState('');
   const [camerasLoading, setCamerasLoading] = useState(true);
+  const [preloadedGlasses, setPreloadedGlasses] = useState<HTMLCanvasElement | null>(null);
 
-  // Start camera on open
+  // Start camera and preload assets on open
   useEffect(() => {
     if (!isOpen) return;
     setStage('preview');
     setCamerasLoading(true);
     setErrorMsg('');
 
+    // Preload glasses image
+    loadGlassesImage(productImage).then(canvas => {
+      setPreloadedGlasses(canvas);
+    });
+
+    // Warm up FaceMesh scripts
+    loadFaceMesh().catch(err => {
+      console.error("FaceMesh preload failed", err);
+    });
+
+    let activeStream: MediaStream | null = null;
+
     navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+      video: { 
+        facingMode: 'user', 
+        width: { ideal: 1280 }, 
+        height: { ideal: 720 } 
+      }
     }).then(stream => {
+      activeStream = stream;
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.play();
-        setCamerasLoading(false);
+        // Use a promise-based play check to avoid race conditions
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setCamerasLoading(false);
+          }).catch(error => {
+            console.error("Video play failed:", error);
+            setCamerasLoading(false);
+          });
+        }
       }
-    }).catch(() => {
+    }).catch((err) => {
+      console.error("Camera access error:", err);
       setErrorMsg('Camera access denied. Please allow camera permission and try again.');
       setStage('error');
       setCamerasLoading(false);
     });
 
-    return () => stopCamera();
-  }, [isOpen]);
+    return () => {
+      stopCamera();
+      if (activeStream) {
+        activeStream.getTracks().forEach(t => t.stop());
+      }
+    };
+  }, [isOpen, productImage]);
 
   const stopCamera = () => {
     if (streamRef.current) {
@@ -98,8 +130,8 @@ export const TryOnModal: React.FC<TryOnModalProps> = ({ isOpen, onClose, product
     const snapCtx = snapCanvas.getContext('2d')!;
     snapCtx.drawImage(video, 0, 0, W, H);
 
-    // Load glasses image with bg removal
-    const glassesCanvas = await loadGlassesImage(productImage, W);
+    // Use preloaded glasses or load now if not ready
+    const glassesCanvas = preloadedGlasses || await loadGlassesImage(productImage);
 
     try {
       await loadFaceMesh();
@@ -351,7 +383,7 @@ export const TryOnModal: React.FC<TryOnModalProps> = ({ isOpen, onClose, product
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
-function loadGlassesImage(src: string, canvasWidth: number): Promise<HTMLCanvasElement> {
+function loadGlassesImage(src: string): Promise<HTMLCanvasElement> {
   return new Promise((resolve) => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
