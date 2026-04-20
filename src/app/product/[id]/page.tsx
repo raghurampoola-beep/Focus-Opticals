@@ -3,10 +3,11 @@
 import React, { useState, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, Star, Heart, Check, Info, Minus, Plus, MessageCircle, MapPin } from 'lucide-react';
+import { ChevronLeft, Star, Heart, Check, Info, Minus, Plus, MessageCircle, MapPin, Camera, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
+import { TryOnModal } from '@/components/ui/TryOnModal';
 import { useSearchParams } from 'next/navigation';
 
 const powerTypes = [
@@ -131,6 +132,20 @@ function ProductDetailContent() {
       colors: [
         { name: 'Crystal/Gunmetal', hex: '#8e9196', image: 'https://ik.imagekit.io/FocusOpticals/front.png?updatedAt=1775112199067' }
       ]
+    },
+    'vector-slate': {
+      name: "Vector Slate",
+      price: "₹850",
+      rating: "4.7",
+      desc: "The Executive Browline • Semi-Rimless Rectangular Frame",
+      images: [
+        { label: 'Front View', url: 'https://ik.imagekit.io/FocusOpticals/front-k.png', color: 'bg-teal-500' },
+        { label: 'Side Profile', url: 'https://ik.imagekit.io/FocusOpticals/side-k.png', color: 'bg-gray-900' },
+        { label: 'Right View Full', url: 'https://ik.imagekit.io/FocusOpticals/right-k.png', color: 'bg-blue-600' }
+      ],
+      colors: [
+        { name: 'Matte Black', hex: '#000000', image: 'https://ik.imagekit.io/FocusOpticals/front-k.png' }
+      ]
     }
   };
 
@@ -141,6 +156,7 @@ function ProductDetailContent() {
   const [manualPower, setManualPower] = useState('');
   const [selectedColor, setSelectedColor] = useState(currentProduct.colors[0]);
   const [isLiked, setIsLiked] = useState(false);
+  const [isTryOnOpen, setIsTryOnOpen] = useState(false);
 
   const powerTypeName = powerTypes.find(p => p.id === selectedPowerType)?.name;
   const lensName = lensOptions.find(l => l.id === selectedLens)?.name;
@@ -242,11 +258,31 @@ function ProductDetailContent() {
               </h1>
               <p className="text-gray-500 text-lg mb-8 font-medium">{currentProduct.desc}</p>
 
-              <div className="flex items-baseline gap-4 mb-10">
+              <div className="flex items-baseline gap-4 mb-4">
                 <span className="text-4xl font-black text-gray-900">{currentProduct.price}</span>
                 <span className="text-xl text-gray-400 line-through">{formattedOriginalPrice}</span>
                 <span className="bg-teal-100 text-teal-700 text-xs font-black px-2 py-1 rounded-md">50% OFF</span>
               </div>
+
+              {/* AR Try On Trigger */}
+              <button
+                onClick={() => setIsTryOnOpen(true)}
+                className="w-full mb-10 flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all group"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="p-2 bg-white/20 rounded-xl">
+                    <Camera size={24} />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-black uppercase italic tracking-wider text-sm leading-none mb-1">Virtual Try-On</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">See how they look on you</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                  <Sparkles size={12} className="animate-pulse" />
+                  Live AR
+                </div>
+              </button>
 
               <div className="w-full h-px bg-gray-100 mb-10" />
 
@@ -460,8 +496,12 @@ Total Amount: ${formattedTotalPrice}`}
         </div>
       </main>
 
-
-
+      <TryOnModal
+        isOpen={isTryOnOpen}
+        onClose={() => setIsTryOnOpen(false)}
+        productImage={currentProduct.images[0].url}
+        productName={currentProduct.name}
+      />
     </div>
   );
 }

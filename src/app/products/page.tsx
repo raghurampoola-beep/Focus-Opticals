@@ -73,6 +73,17 @@ function ProductsContent() {
       side: "https://ik.imagekit.io/FocusOpticals/right.png?updatedAt=1775112197641",
       href: "/product/1?shape=beta-ultem",
       shapes: ['square', 'wayfarer', 'rectangle']
+    },
+    {
+      id: 'vector-slate',
+      name: 'Vector Slate',
+      price: '₹850',
+      rating: '4.7',
+      desc: 'The Executive Browline • Semi-Rimless',
+      front: "https://ik.imagekit.io/FocusOpticals/front-k.png",
+      side: "https://ik.imagekit.io/FocusOpticals/side-k.png",
+      href: "/product/1?shape=vector-slate",
+      shapes: ['rectangle', 'square']
     }
   ];
 
@@ -107,7 +118,7 @@ function ProductsContent() {
         </div>
 
         {/* Products Grid - Consistent Sizing for both 1 and 2 products */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-7xl mx-auto">
           {displayProducts.map((product) => (
             <div key={product.id} className="w-full max-w-md mx-auto">
               <Link href={product.href} className="block group">
@@ -116,9 +127,9 @@ function ProductsContent() {
                     name={product.name}
                     price={product.price}
                     description={product.desc}
-                    // Geometric/Beta-Ultem: Side first, Front hover | Rectangle: Front first, Side hover
-                    frontViewSrc={(product.id === 'geometric' || product.id === 'beta-ultem') ? product.side : product.front}
-                    otherViewSrc={(product.id === 'geometric' || product.id === 'beta-ultem') ? product.front : product.side}
+                    // Geometric/Beta-Ultem/Vector-Slate: Side first, Front hover | Rectangle/Wayfarer: Front first, Side hover
+                    frontViewSrc={(product.id === 'geometric' || product.id === 'beta-ultem' || product.id === 'vector-slate') ? product.side : product.front}
+                    otherViewSrc={(product.id === 'geometric' || product.id === 'beta-ultem' || product.id === 'vector-slate') ? product.front : product.side}
                     alt={product.name}
                     rating={product.rating}
                     reviewCount={1540}

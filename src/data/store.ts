@@ -86,6 +86,15 @@ export const products: Product[] = [
     description: 'Unbreakable, colorful frames designed specifically for children.',
     image: 'https://images.unsplash.com/photo-1509695507497-903c140c43b0?auto=format&fit=crop&q=80&w=800',
     stock: true,
+  },
+  {
+    id: 'p7',
+    name: 'Vector Slate',
+    price: 850.00,
+    categoryId: 'c1',
+    description: 'The Executive Browline • Semi-Rimless Rectangular Frame with Amber-Brown accents.',
+    image: 'https://ik.imagekit.io/FocusOpticals/front-k.png',
+    stock: true,
   }
 ];
 
