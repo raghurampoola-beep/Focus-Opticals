@@ -237,6 +237,23 @@ function ProductDetailContent() {
                 />
               </motion.div>
             ))}
+
+            {/* AR action buttons after the last image */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              <Link href="/contact">
+                <button className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-gray-200 text-gray-700 font-bold text-[11px] uppercase tracking-wider hover:border-teal-600 hover:text-teal-600 transition-all shadow-sm active:scale-95 group">
+                  <MapPin size={16} className="text-teal-600 group-hover:scale-110 transition-transform" />
+                  Nearby Stores
+                </button>
+              </Link>
+              <button
+                onClick={() => setIsTryOnOpen(true)}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#008c8c] text-white font-bold text-[11px] uppercase tracking-wider hover:bg-[#007a7a] transition-all shadow-md shadow-teal-600/20 active:scale-95"
+              >
+                <Camera size={16} />
+                Try On
+              </button>
+            </div>
           </div>
 
           {/* Right Column - Controls */}
@@ -263,26 +280,6 @@ function ProductDetailContent() {
                 <span className="text-xl text-gray-400 line-through">{formattedOriginalPrice}</span>
                 <span className="bg-teal-100 text-teal-700 text-xs font-black px-2 py-1 rounded-md">50% OFF</span>
               </div>
-
-              {/* AR Try On Trigger */}
-              <button
-                onClick={() => setIsTryOnOpen(true)}
-                className="w-full mb-10 flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all group"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="p-2 bg-white/20 rounded-xl">
-                    <Camera size={24} />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-black uppercase italic tracking-wider text-sm leading-none mb-1">Virtual Try-On</p>
-                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-80">See how they look on you</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                  <Sparkles size={12} className="animate-pulse" />
-                  Live AR
-                </div>
-              </button>
 
               <div className="w-full h-px bg-gray-100 mb-10" />
 
@@ -483,13 +480,6 @@ Total Amount: ${formattedTotalPrice}`}
                   Care Guide
                 </Button>
               </div>
-
-              <Link href="/contact" className="block pt-3">
-                <button className="w-full flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-black uppercase tracking-widest transition-colors shadow-md">
-                  <MapPin size={18} />
-                  Visit Our Store
-                </button>
-              </Link>
 
             </motion.div>
           </div>
